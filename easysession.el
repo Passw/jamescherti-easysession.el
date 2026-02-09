@@ -478,106 +478,111 @@ such as graphical frames.")
 ;; Overrides `frameset-filter-alist' while preserving its keys,
 ;; but replaces their values with the ones specified in the following alist:
 (defvar easysession--overwrite-frameset-filter-alist
-  '(; Same as `frameset-persistent-filter-alist'
-    (background-color . :never)
-    (bottom . :never)
-    (buffer-list . :never)
-    (buffer-predicate . :never)
-    (buried-buffer-list . :never)
+  '(
+    ;; Already excluded by frameset-persistent-filter-alist
+    ;; (background-color . :never)
+    ;; (buffer-list . :never)
+    ;; (buffer-predicate . :never)
+    ;; (buried-buffer-list . :never)
+    ;; (delete-before . :never)
+    ;; (foreground-color . :never)
+    ;; (parent-frame . :never)
+    ;; (mouse-wheel-frame . :never)
+    ;; (window-system . :never)
+    ;; (name . :never)
+    ;; (parent-id . :never)
+    ;; (window-id . :never)
+    ;; (font . :never)
+    ;; (font-backend . :never)
+    ;; (GUI:font . :never)
+
     ;; Don't save the 'client' parameter to avoid that a subsequent
     ;; `save-buffers-kill-terminal' in a non-client session barks at
     ;; the user (Emacs Bug#29067).
-    (client . :never)
-    (delete-before . :never)
-    (font . :never)
-    (font-backend . :never)
-    (foreground-color . :never)
-    (frameset--text-pixel-height . :never)
-    (frameset--text-pixel-width . :never)
-    (fullscreen . :never)
+    ;; (client . :never)
+
+    ;; Geometry
     (GUI:bottom . :never)
-    (GUI:font . :never)
     (GUI:fullscreen . :never)
     (GUI:height . :never)
     (GUI:left . :never)
     (GUI:right . :never)
     (GUI:top . :never)
     (GUI:width . :never)
+    (bottom . :never)
+    (fullscreen . :never)
     (height . :never)
     (left . :never)
-    (parent-frame . :never)
-    (mouse-wheel-frame . :never)
     (right . :never)
     (top . :never)
-    ;; (tty . :never)
-    ;; (tty-type . :never)
     (width . :never)
-    (window-system . :never)
 
-    ;; Affect the geometry, but let the user configure them
-    (internal-border-width . :never)
-    (child-frame-border-width . :never)
-    (left-fringe . :never)
-    (right-fringe . :never)
-    (bottom-divider-width . :never)
-    (right-divider-width . :never)
+    ;; Window-manager mutable flags: leave commented out
+    ;; TODO Testing without these parameters
+    ;; (skip-taskbar . :never)
+    ;; (sticky . :never)
+    ;; (shaded . :never)
+    ;; (undecorated . :never)
+    ;; (border-width . :never)
+
+    ;; Pixel Precision (Affect the geometry, but let the user configure them)
+    ;; TODO Testing without these parameters
+    (frameset--text-pixel-height . :never)
+    (frameset--text-pixel-width . :never)
+    ;; (child-frame-border-width . :never)
+    ;; (bottom-divider-width . :never)
+    ;; (right-divider-width . :never)
 
     ;; Let the user configure the scroll bars, tool-bar, and menu-bar
-    (vertical-scroll-bars . :never)
-    (horizontal-scroll-bars . :never)
-    (scroll-bar-width . :never)
-    (scroll-bar-height . :never)
-    (menu-bar-lines . :never)
-    (tool-bar-lines . :never)
-    (tool-bar-position . :never)
-    (line-spacing . :never)
-    (no-special-glyphs . :never)
+    ;; TODO Testing without these parameters
+    ;; (vertical-scroll-bars . :never)
+    ;; (horizontal-scroll-bars . :never)
 
-    (scroll-bar-background . :never)
-    (scroll-bar-foreground . :never)
+    ;; (tool-bar-position . :never)
+    ;; (no-special-glyphs . :never)
 
-    ;; Can be changed by the window manager
-    (skip-taskbar . :never)
-    (sticky . :never)
-    (shaded . :never)
-    (undecorated . :never)
-    (border-width . :never)
-
-    ;; Allow restoring alpha and tab-bar-lines
-    ;; (alpha . :never)  ; transparency
-    ;; (alpha-background . :never)  ; transparency
-    ;; Never exclude: tab-bar-lines
+    ;; Fonts, fringes, toolbars, scrollbars: leave commented out
+    ;; (scroll-bar-width . :never)
+    ;; (scroll-bar-height . :never)
+    ;; (internal-border-width . :never)
+    ;; (left-fringe . :never)
+    ;; (right-fringe . :never)
+    ;; (menu-bar-lines . :never)
+    ;; (tool-bar-lines . :never)
+    ;; (line-spacing . :never)
+    ;; (parent-id . :never)
 
     ;; Other exclusions
-    (override-redirect . :never)
-    (auto-lower . :never)  ; control focus behavior
-    (auto-raise . :never)  ; control focus behavior
-    (background-mode . :never)  ; Affects theme/light/dark mode
-    (border-color . :never)
-    (child-frame-border-width . :never)
-    (cursor-color . :never)
-    (cursor-type . :never)
-    (display-type . :never)
-    (environment . :never)
-    (font-parameter . :never)
-    (icon-type . :never)
-    (inhibit-double-buffering . :never)
-    (minibuffer . :never)
-    (mouse-color . :never)
-    (name . :never)
-    (no-accept-focus . :never)
-    (no-focus-on-map . :never)
-    (ns-appearance . :never)
-    (outer-window-id . :never)
-    (parent-id . :never)
-    (screen-gamma . :never)
-    (use-frame-synchronization . :never)
-    (window-id . :never)
+    ;; TODO Commented out. Testing the effect.
+    ;; (scroll-bar-background . :never)
+    ;; (scroll-bar-foreground . :never)
+    ;; (override-redirect . :never)
+    ;; (auto-lower . :never)  ; control focus behavior
+    ;; (auto-raise . :never)  ; control focus behavior
+    ;; (background-mode . :never)  ; Affects theme/light/dark mode
+    ;; (border-color . :never)
+    ;; (child-frame-border-width . :never)
+    ;; (cursor-color . :never)
+    ;; (cursor-type . :never)
+    ;; (display-type . :never)
+    ;; (environment . :never)
+    ;; (font-parameter . :never)
+    ;; (icon-type . :never)
+    ;; (inhibit-double-buffering . :never)
+    ;; (minibuffer . :never)
+    ;; (mouse-color . :never)
+    ;; (no-accept-focus . :never)
+    ;; (no-focus-on-map . :never)
+    ;; (ns-appearance . :never)
+    ;; (outer-window-id . :never)
+    ;; (screen-gamma . :never)
+    ;; (use-frame-synchronization . :never)
 
     ;; Ensures frames are positioned only after the window manager maps them,
     ;; helping avoid small shifts in geometry.
     ;; (Do not restore wait-for-wm. Let the user configure it.)
-    (wait-for-wm . :never)
+    ;; TODO Commented out. Testing the effect.
+    ;; (wait-for-wm . :never)
 
     ;; Restore the frame title
     ;; (title . :never)
@@ -590,15 +595,8 @@ such as graphical frames.")
     ;; Fixes #24: Restoring a saved session does not restore all frames It was
     ;;            caused by: (visibility . :never).
     ;; (visibility . :never)
-
-    ;; Third party package (Fixes #22)
-    ;; TODO remove (Fixed by serialization function)
-    (lsp-ui-doc-buffer . :never)
-
-    ;; Third party package (Fixes #32)
-    ;; TODO remove (Fixed by serialization function)
-    (dv-preview-last . :never))
-  "Alist of frame parameters to keep.")
+    )
+  "EasySession overrides to prevent restoration of frame geometry.")
 
 (defun easysession--filter-out-frameset-filters (list-keys)
   "Remove geometry.
@@ -611,8 +609,6 @@ from `easysession--overwrite-frameset-filter-alist`."
 (defvar easysession--overwrite-frameset-filter-include-geometry-alist
   (easysession--filter-out-frameset-filters
    '(; Same as `frameset-persistent-filter-alist'
-     bottom
-     fullscreen
      GUI:bottom
      GUI:fullscreen
      GUI:height
@@ -620,11 +616,17 @@ from `easysession--overwrite-frameset-filter-alist`."
      GUI:right
      GUI:top
      GUI:width
+     bottom
+     fullscreen
      height
      left
      right
      top
      width
+
+     ;; Pixel perfect width and height
+     frameset--text-pixel-height
+     frameset--text-pixel-width
 
      ;; TODO experimental
      ;; vertical-scroll-bars
@@ -679,12 +681,12 @@ from `easysession--overwrite-frameset-filter-alist`."
      ;; offsets in frame height or width. Ignoring these can cause frames to
      ;; appear slightly larger or smaller than when saved.
      bottom-divider-width
-     right-divider-width
+     right-divider-width))
+  "EasySession overrides enabling restoration of frame geometry.
 
-     ;; Pixel perfect width and height
-     frameset--text-pixel-height
-     frameset--text-pixel-width))
-  "Alist of frame parameters to keep.")
+This alist is derived from `frameset-persistent-filter-alist' with explicit
+inclusion of geometry-related frame parameters, including character-based,
+pixel-based, and window-manager-sensitive layout attributes.")
 
 (defvar easysession-file-version 3
   "Version number of easysession file format.")
